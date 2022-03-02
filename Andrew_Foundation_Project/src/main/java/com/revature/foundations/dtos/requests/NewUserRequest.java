@@ -1,8 +1,8 @@
-package com.revature.foundations.models;
+package com.revature.foundations.dtos.requests;
 
-import java.util.Objects;
+import com.revature.foundations.models.ERSUser;
 
-public class ERSUser {
+public class NewUserRequest {
 
     private String userId;
     private String userName;
@@ -11,19 +11,22 @@ public class ERSUser {
     private String givenName;
     private String surname;
     private Boolean isActive;
-    private ERSUserRoles roleId;
+    private String roleId;
 
-    public ERSUser() {
+    public NewUserRequest() {
         super();
     }
 
-    public ERSUser(String userName, String email, String userPassword, String givenName, String surname){
+    public NewUserRequest(String userId, String userName, String email, String userPassword, String givenName,
+                          String surname, Boolean isActive, String roleId) {
+        this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.userPassword = userPassword;
         this.givenName = givenName;
         this.surname = surname;
-
+        this.isActive = isActive;
+        this.roleId = roleId;
     }
 
     public String getUserId() {
@@ -66,14 +69,6 @@ public class ERSUser {
         this.givenName = givenName;
     }
 
-    public Boolean getActive() {
-        return isActive;
-    }
-
-    public void setActive(Boolean active) {
-        isActive = active;
-    }
-
     public String getSurname() {
         return surname;
     }
@@ -82,37 +77,13 @@ public class ERSUser {
         this.surname = surname;
     }
 
-    public ERSUserRoles getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(ERSUserRoles roleId) {
-        this.roleId = roleId;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ERSUser ersUser = (ERSUser) o;
-        return Objects.equals(userId, ersUser.userId)
-                && Objects.equals(userName, ersUser.userName)
-                && Objects.equals(email, ersUser.email)
-                && Objects.equals(userPassword, ersUser.userPassword)
-                && Objects.equals(givenName, ersUser.givenName)
-                && Objects.equals(surname, ersUser.surname)
-                && Objects.equals(isActive, ersUser.isActive)
-                && Objects.equals(roleId, ersUser.roleId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(userId, userName, email, userPassword, givenName, surname, isActive, roleId);
+    public ERSUser extractUser() {
+        return new ERSUser(userName, email, userPassword, givenName, surname);
     }
 
     @Override
     public String toString() {
-        return "ERSUser{" +
+        return "NewUserRequest{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
@@ -120,7 +91,7 @@ public class ERSUser {
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", isActive=" + isActive +
-                ", roleId=" + roleId +
+                ", roleId='" + roleId + '\'' +
                 '}';
     }
 }

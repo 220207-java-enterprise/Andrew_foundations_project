@@ -94,7 +94,7 @@ public class UsersService {
 
         // Passwords require a minimum eight characters, at least one uppercase letter, one lowercase
         // letter, one number and one special character
-        if (!isPasswordValid(appUser.getUserPassword())) {
+        if (!isPasswordValid(appUser.getPassword())) {
             return false;
         }
 

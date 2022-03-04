@@ -7,7 +7,7 @@ public class ERSUser {
     private String userId;
     private String userName;
     private String email;
-    private String userPassword;
+    private String password;
     private String givenName;
     private String surname;
     private Boolean isActive;
@@ -17,10 +17,10 @@ public class ERSUser {
         super();
     }
 
-    public ERSUser(String userName, String email, String userPassword, String givenName, String surname){
+    public ERSUser(String userName, String email, String password, String givenName, String surname){
         this.userName = userName;
         this.email = email;
-        this.userPassword = userPassword;
+        this.password = password;
         this.givenName = givenName;
         this.surname = surname;
 
@@ -31,7 +31,7 @@ public class ERSUser {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
-        this.userPassword = userPassword;
+        this.password = userPassword;
         this.givenName = givenName;
         this.surname = surname;
         this.isActive = isActive;
@@ -62,12 +62,12 @@ public class ERSUser {
         this.email = email;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getGivenName() {
@@ -110,7 +110,7 @@ public class ERSUser {
         return Objects.equals(userId, ersUser.userId)
                 && Objects.equals(userName, ersUser.userName)
                 && Objects.equals(email, ersUser.email)
-                && Objects.equals(userPassword, ersUser.userPassword)
+                && Objects.equals(password, ersUser.password)
                 && Objects.equals(givenName, ersUser.givenName)
                 && Objects.equals(surname, ersUser.surname)
                 && Objects.equals(isActive, ersUser.isActive)
@@ -119,7 +119,7 @@ public class ERSUser {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, userName, email, userPassword, givenName, surname, isActive, roleId);
+        return Objects.hash(userId, userName, email, password, givenName, surname, isActive, roleId);
     }
 
     @Override
@@ -128,7 +128,7 @@ public class ERSUser {
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +
-                ", userPassword='" + userPassword + '\'' +
+                ", userPassword='" + password + '\'' +
                 ", givenName='" + givenName + '\'' +
                 ", surname='" + surname + '\'' +
                 ", isActive=" + isActive +

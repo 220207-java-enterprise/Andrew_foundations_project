@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.foundations.dtos.requests.LoginRequest;
 import com.revature.foundations.dtos.responses.Principal;
+import com.revature.foundations.services.TokenService;
 import com.revature.foundations.services.UsersService;
 import com.revature.foundations.util.exceptions.AuthenticationException;
 import com.revature.foundations.util.exceptions.InvalidRequestException;
@@ -18,12 +19,19 @@ import java.io.PrintWriter;
 
 public class AuthServlet extends HttpServlet {
 
+    private final TokenService tokenService;
     private final UsersService userService;
     private final ObjectMapper mapper;
 
-    public AuthServlet(UsersService userService, ObjectMapper mapper) {
+    public AuthServlet(TokenService tokenService, UsersService userService, ObjectMapper mapper) {
+        this.tokenService = tokenService;
         this.userService = userService;
         this.mapper = mapper;
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(req.getServletContext().getInitParameter("programmaticParam"));
     }
 
     @Override
@@ -39,13 +47,20 @@ public class AuthServlet extends HttpServlet {
 
             HttpSession httpSession = req.getSession();
             httpSession.setAttribute("authUser", principal);
+
+
+//            String token = tokenService.generateToken(principal);
+//            resp.setHeader("Authorization", token);
             resp.setContentType("application/json");
             writer.write(payload);
 
 
+
         } catch (InvalidRequestException | DatabindException e) {
+            e.printStackTrace();
             resp.setStatus(400);
         } catch (AuthenticationException e) {
+            e.printStackTrace();
             resp.setStatus(401); // UNAUTHORIZED (no user found with provided credentials)
         } catch (Exception e) {
             e.printStackTrace();

@@ -7,6 +7,7 @@ import com.revature.foundations.dtos.responses.AppUserResponse;
 import com.revature.foundations.dtos.responses.Principal;
 import com.revature.foundations.dtos.responses.ResourceCreationResponse;
 import com.revature.foundations.models.ERSUser;
+import com.revature.foundations.services.TokenService;
 import com.revature.foundations.services.UsersService;
 import com.revature.foundations.util.exceptions.InvalidRequestException;
 import com.revature.foundations.util.exceptions.ResourceConflictException;
@@ -22,13 +23,16 @@ import java.util.List;
 
 
 public class UsersServlet extends HttpServlet {
+    private final TokenService tokenService;
     private final UsersService userService;
     private final ObjectMapper mapper;
 
-    public UsersServlet(UsersService userService, ObjectMapper mapper) {
+    public UsersServlet(TokenService tokenService, UsersService userService, ObjectMapper mapper) {
+        this.tokenService = tokenService;
         this.userService = userService;
         this.mapper = mapper;
     }
+
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

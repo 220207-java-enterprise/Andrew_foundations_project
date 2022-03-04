@@ -53,7 +53,7 @@ public class UsersService {
 
 
         newUser.setUserId(UUID.randomUUID().toString());
-        newUser.setRoleId(new ERSUserRoles("7c3521f5-ff75-4e8a-9913-01d15ee4dc97", "BASIC_USER")); // Admins Finance Employees Add own.
+        newUser.setRoleId(new ERSUserRoles("3", "Employee"));
         userDAO.save(newUser);
 
         return newUser;
@@ -83,7 +83,7 @@ public class UsersService {
     private boolean isUserValid(ERSUser appUser) {
 
         // First name and last name are not just empty strings or filled with whitespace
-        if (appUser.getGivenName().trim().equals("") || appUser.getSurname().trim().equals("")) { //TODO
+        if (appUser.getGivenName().trim().equals("") || appUser.getSurname().trim().equals("")) {
             return false;
         }
 

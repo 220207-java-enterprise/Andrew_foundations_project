@@ -9,10 +9,10 @@ CREATE TABLE ERS_REIMBURSEMENTS
     DESCRIPTION VARCHAR NOT NULL,
     RECEIPT BYTEA, --BLOB DOES not EXIST ISSUE
     PAYMENT_ID VARCHAR, --Prism don't focus on
-    AUTHOR_ID VARCHAR NOT null, --need not be unique
-    RESOLVER_ID VARCHAR, --need not be and NN unique 
-    STATUS_ID VARCHAR NOT null, --not uniuqe
-    TYPE_ID VARCHAR NOT null, --not unique
+    AUTHOR_ID VARCHAR NOT null,
+    RESOLVER_ID VARCHAR, 
+    STATUS_ID VARCHAR NOT null, 
+    TYPE_ID VARCHAR NOT null, 
     constraint PK_REIMB_ID primary key (REIMB_ID)
 );
 
@@ -69,3 +69,9 @@ alter table ers_reimbursements add constraint FK_STATUS_ID
 alter table ers_reimbursements add constraint FK_TYPE_ID
 	foreign key (TYPE_ID) references ERS_REIMBURSEMENTS_TYPES(TYPE_ID) ON DELETE NO ACTION ON UPDATE NO action;
 
+--default setup
+insert into ers_user_roles values ('1', 'Admin'), ('2', 'Finance Manager'), ('3', 'Employee');
+insert into ers_users values ('1', 'Tester99', 'AmazingTester@revature.com', 'p4$$W0RD', 'Amazing',
+	'Tester', true, '1');
+
+select * from ers_users eu ;

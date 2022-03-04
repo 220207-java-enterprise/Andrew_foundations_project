@@ -12,12 +12,9 @@ import java.util.List;
 
 public class UserDAO implements CrudDAO<ERSUser> {
 
-    private final String rootSelect = "SELECT " +
-            "eu.USER_ID, eu.USERNAME, eu.EMAIL, eu.USERPASSWORD, eu.GIVEN_NAME, eu.SUR_NAME eu.IS_ACTIVE, eu.ROLE_ID," +
-            " ur.ROLEOF " +
-            "FROM ERS_USERS eu " +
-            "JOIN ERS_USER_ROLES ur " +
-            "ON au.ROLE_ID = ur.ROLE_ID ";
+    private final String rootSelect = "SELECT eu.USER_ID, eu.USERNAME, eu.EMAIL, eu.USERPASSWORD, eu.GIVEN_NAME, " +
+                                      "eu.SUR_NAME, eu.IS_ACTIVE, eu.ROLE_ID, ur.ROLEOF "+
+                                      "FROM ERS_USERS eu JOIN ERS_USER_ROLES ur ON eu.ROLE_ID = ur.ROLE_ID ";
 
     public ERSUser findUserByUsername(String username) {
 
@@ -81,15 +78,15 @@ public class UserDAO implements CrudDAO<ERSUser> {
     public ERSUser findUserByUsernameAndPassword(String username, String password) {
 
         ERSUser authUser = null;
-
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE username = ? AND password = ?");
+            PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE username = ? AND userpassword = ?");
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-
             ResultSet rs = pstmt.executeQuery();
+            System.out.println("fixme?!");
             if (rs.next()) {
+
                 authUser = new ERSUser();
                 authUser.setUserId(rs.getString("USER_ID"));
                 authUser.setUserName(rs.getString("USERNAME"));

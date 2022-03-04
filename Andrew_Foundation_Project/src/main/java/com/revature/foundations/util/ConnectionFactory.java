@@ -22,7 +22,9 @@ public class ConnectionFactory {
 
     private ConnectionFactory() {
         try {
-            property.load(new FileReader("src/main/resources/application.properties"));
+            this.property.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
+
+            //property.load(new FileReader("src/main/resources/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

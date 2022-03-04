@@ -5,7 +5,7 @@ import com.revature.foundations.models.ERSUser;
 public class Principal {
     private String userId;
     private String userName;
-    private String roleId;
+    private String roleOf;
 
     public Principal() {
         super();
@@ -14,7 +14,7 @@ public class Principal {
     public Principal(ERSUser user){
         this.userId = user.getUserId();
         this.userName = user.getUserName();
-        this.roleId = user.getRoleId().getRoleOf();
+        this.roleOf = user.getRoleId().getRoleOf();
     }
 
     public String getUserId() {
@@ -34,11 +34,11 @@ public class Principal {
     }
 
     public String getRoleId() {
-        return roleId;
+        return roleOf;
     }
 
     public void setRoleId(String roleId) {
-        this.roleId = roleId;
+        this.roleOf = roleId;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Principal {
         return "Principal{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
-                ", roleId='" + roleId + '\'' +
+                ", roleId='" + roleOf + '\'' +
                 '}';
     }
 }

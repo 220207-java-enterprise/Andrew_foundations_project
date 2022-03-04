@@ -2,6 +2,7 @@ package com.revature.foundations.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.foundations.daos.UserDAO;
+import com.revature.foundations.services.TokenService;
 import com.revature.foundations.services.UsersService;
 import com.revature.foundations.servlets.AuthServlet;
 import com.revature.foundations.servlets.UsersServlet;
@@ -17,11 +18,13 @@ public class ContextLoaderListener implements ServletContextListener{
         System.out.println("Initializing ERS web application...");
 
         ObjectMapper mapper = new ObjectMapper();
+        JwtConfig jwtConfig = new JwtConfig();
+        TokenService tokenService = new TokenService(jwtConfig);
 
         UserDAO userDAO = new UserDAO();
         UsersService usersService = new UsersService(userDAO);
-        UsersServlet usersServlet = new UsersServlet(usersService, mapper);
-        AuthServlet authServlet = new AuthServlet(usersService, mapper);
+        UsersServlet usersServlet = new UsersServlet(tokenService, usersService, mapper);
+        AuthServlet authServlet = new AuthServlet(tokenService, usersService, mapper);
 
         ServletContext context = sce.getServletContext();
         context.addServlet("UsersServlet", usersServlet).addMapping("/users/*");

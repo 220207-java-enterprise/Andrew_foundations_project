@@ -13,15 +13,13 @@ public class JwtConfig {
 
 
     private Properties property = new Properties();
-    private int expiration = 1* 60 * 60 * 1000; //token length 1 hour
+    private int expiration = 1* 60 * 60 * 1000; // number of milliseconds in an hour
     private final SignatureAlgorithm sigAlg = SignatureAlgorithm.HS256;
     private final Key signingKey;
 
     public JwtConfig() {
         try {
-            this.property.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
-
-            //property.load(new FileReader("src/main/resources/application.properties"));
+            property.load(new FileReader("src/main/resources/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }

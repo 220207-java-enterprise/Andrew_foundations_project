@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionFactory {
+
     private static ConnectionFactory connectionFactory;
 
     static {
@@ -18,13 +19,11 @@ public class ConnectionFactory {
         }
     }
 
-    private Properties property = new Properties();
+    private Properties props = new Properties();
 
     private ConnectionFactory() {
         try {
-            this.property.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("application.properties"));
-
-            //property.load(new FileReader("src/main/resources/application.properties"));
+            props.load(new FileReader("src/main/resources/application.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,8 +38,7 @@ public class ConnectionFactory {
 
     public Connection getConnection() throws SQLException {
 
-        Connection conn = DriverManager.getConnection(property.getProperty("db-url"),
-                property.getProperty("db-username"), property.getProperty("db-password"));
+        Connection conn = DriverManager.getConnection(props.getProperty("db-url"), props.getProperty("db-username"), props.getProperty("db-password"));
 
         if (conn == null) {
             throw new RuntimeException("Could not establish connection with the database!");

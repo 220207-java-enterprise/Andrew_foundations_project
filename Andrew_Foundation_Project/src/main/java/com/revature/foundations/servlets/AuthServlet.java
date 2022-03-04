@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.foundations.dtos.requests.LoginRequest;
 import com.revature.foundations.dtos.responses.Principal;
+import com.revature.foundations.models.ERSUser;
 import com.revature.foundations.services.TokenService;
 import com.revature.foundations.services.UsersService;
 import com.revature.foundations.util.exceptions.AuthenticationException;
@@ -13,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -34,6 +34,7 @@ public class AuthServlet extends HttpServlet {
         System.out.println(req.getServletContext().getInitParameter("programmaticParam"));
     }
 
+    // Login endpoint
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -45,19 +46,17 @@ public class AuthServlet extends HttpServlet {
             Principal principal = new Principal(userService.login(loginRequest));
             String payload = mapper.writeValueAsString(principal);
 
-            HttpSession httpSession = req.getSession();
-            httpSession.setAttribute("authUser", principal);
+            // Stateful session management
+//            HttpSession httpSession = req.getSession();
+//            httpSession.setAttribute("authUser", principal);
 
-
-//            String token = tokenService.generateToken(principal);
-//            resp.setHeader("Authorization", token);
+            String token = tokenService.generateToken(principal);
+            resp.setHeader("Authorization", token);
             resp.setContentType("application/json");
             writer.write(payload);
 
 
-
         } catch (InvalidRequestException | DatabindException e) {
-            e.printStackTrace();
             resp.setStatus(400);
         } catch (AuthenticationException e) {
             e.printStackTrace();
@@ -67,4 +66,5 @@ public class AuthServlet extends HttpServlet {
             resp.setStatus(500);
         }
     }
+
 }

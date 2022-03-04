@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example</groupId>
+    <groupId>com.revature.foundations</groupId>
     <artifactId>Andrew_Foundation_Project</artifactId>
-    <version>0.0.1</version>
+    <version>1.1.1</version>
     <packaging>war</packaging>
 
     <properties>
@@ -66,6 +66,7 @@
     <build>
         <pluginManagement>
             <plugins>
+
                 <plugin>
                     <groupId>org.apache.tomcat.maven</groupId>
                     <artifactId>tomcat7-maven-plugin</artifactId>

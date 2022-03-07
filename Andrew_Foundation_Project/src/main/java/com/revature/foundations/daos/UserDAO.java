@@ -6,7 +6,10 @@ import com.revature.foundations.util.ConnectionFactory;
 import com.revature.foundations.util.exceptions.DataSourceException;
 import com.revature.foundations.util.exceptions.ResourcePersistenceException;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +130,7 @@ public class UserDAO implements CrudDAO<ERSUser> {
             pstmt.setString(4, newUser.getPassword());
             pstmt.setString(5, newUser.getGivenName());
             pstmt.setString(6, newUser.getSurname());
-            pstmt.setBoolean(7,newUser.getActive());
+            pstmt.setBoolean(7, newUser.getActive());
             pstmt.setString(8, newUser.getRoleId().getRoleOf());
 
             int rowsInserted = pstmt.executeUpdate();
@@ -150,7 +153,7 @@ public class UserDAO implements CrudDAO<ERSUser> {
 
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
-            PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement(rootSelect + "WHERE user_id = ?");
             pstmt.setString(1, id);
 
             ResultSet rs = pstmt.executeQuery();
@@ -211,16 +214,19 @@ public class UserDAO implements CrudDAO<ERSUser> {
                     "EMAIL = ?, " +
                     "USERPASSWORD = ?, " +
                     "GIVEN_NAME = ?, " +
-                    "SUR_NAME = ? " +
-                    "IS_ACTIVE = ? " +
-                    "WHERE id = ?");
+                    "SUR_NAME = ?, " +
+                    "IS_ACTIVE = ?, " +
+                    "ROLE_ID = ? " +
+                    "WHERE User_ID = ?");
+
             pstmt.setString(1, updatedUser.getUserName());
             pstmt.setString(2, updatedUser.getEmail());
             pstmt.setString(3, updatedUser.getPassword());
             pstmt.setString(4, updatedUser.getGivenName());
             pstmt.setString(5, updatedUser.getSurname());
             pstmt.setBoolean(6, updatedUser.getActive());
-            pstmt.setString(7, updatedUser.getUserId());
+            pstmt.setString(7, updatedUser.getRoleId().getRoleId());
+            pstmt.setString(8, updatedUser.getUserId());
 
             // TODO allow role to be updated as well
 
@@ -241,7 +247,7 @@ public class UserDAO implements CrudDAO<ERSUser> {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
 
             conn.setAutoCommit(false);
-            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM app_users WHERE id = ?");
+            PreparedStatement pstmt = conn.prepareStatement("DELETE FROM ers_users WHERE user_id = ?");
             pstmt.setString(1, id);
 
             int rowsInserted = pstmt.executeUpdate();

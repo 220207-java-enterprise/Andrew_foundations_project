@@ -1,12 +1,14 @@
 package com.revature.foundations.models;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class ERSRembursements {
     private String reimbId;
     private Double amount; //TODO set max decimales to 2
-    private String submitted; //TODO set timeStamp
-    private String resolved;
+    private Timestamp submitted;
+    private Timestamp resolved;
     private String receipt; //TODO insert image
     private String paymentId;
     private String authorId;
@@ -18,7 +20,7 @@ public class ERSRembursements {
         super();
     }
 
-    public ERSRembursements(String reimbId, Double amount, String submitted, String resolved, String receipt,
+    public ERSRembursements(String reimbId, Double amount, Timestamp submitted, Timestamp resolved, String receipt,
                             String paymentId, String authorId, String resolverId, String statusId, String typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
@@ -48,19 +50,19 @@ public class ERSRembursements {
         this.amount = amount;
     }
 
-    public String getSubmitted() {
+    public Timestamp getSubmitted() {
         return submitted;
     }
 
-    public void setSubmitted(String submitted) {
+    public void setSubmitted(Timestamp submitted) {
         this.submitted = submitted;
     }
 
-    public String getResolved() {
+    public Timestamp getResolved() {
         return resolved;
     }
 
-    public void setResolved(String resolved) {
+    public void setResolved(Timestamp resolved) {
         this.resolved = resolved;
     }
 

@@ -17,21 +17,23 @@ public class ERSUser {
         super();
     }
 
-    public ERSUser(String userName, String email, String password, String givenName, String surname){
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.givenName = givenName;
-        this.surname = surname;
 
-    }
+    public ERSUser(String userId, String userName, String email, String userPassword, String givenName, String surname) {
 
-    public ERSUser(String userId, String userName, String email, String userPassword, String givenName,
-                   String surname, Boolean isActive, ERSUserRoles roleId) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
         this.password = userPassword;
+        this.givenName = givenName;
+        this.surname = surname;
+    }
+
+    public ERSUser(String userId, String userName, String email, String password, String givenName, String surname,
+                   Boolean isActive, ERSUserRoles roleId) {
+        this.userId = userId;
+        this.userName = userName;
+        this.email = email;
+        this.password = password;
         this.givenName = givenName;
         this.surname = surname;
         this.isActive = isActive;
@@ -101,6 +103,7 @@ public class ERSUser {
     public void setRoleId(ERSUserRoles roleId) {
         this.roleId = roleId;
     }
+
 
     @Override
     public boolean equals(Object o) {

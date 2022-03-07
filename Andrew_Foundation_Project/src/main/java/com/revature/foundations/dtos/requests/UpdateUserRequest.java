@@ -1,8 +1,10 @@
 package com.revature.foundations.dtos.requests;
 
+import com.revature.foundations.daos.UserDAO;
 import com.revature.foundations.models.ERSUser;
+import com.revature.foundations.models.ERSUserRoles;
 
-public class NewUserRequest {
+public class UpdateUserRequest {
 
     private String userId;
     private String userName;
@@ -13,14 +15,12 @@ public class NewUserRequest {
     private Boolean isActive;
     private String roleId;
 
-
-
-    public NewUserRequest() {
+    public UpdateUserRequest() {
         super();
     }
 
-    public NewUserRequest(String userId, String userName, String email, String userPassword, String givenName,
-                          String surname, Boolean isActive, String roleId) {
+    public UpdateUserRequest(String userId, String userName, String email, String userPassword, String givenName,
+                             String surname, Boolean isActive, String roleId) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
@@ -79,13 +79,33 @@ public class NewUserRequest {
         this.surname = surname;
     }
 
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
+    }
+
     public ERSUser extractUser() {
-        return new ERSUser(userId, userName, email, userPassword, givenName, surname);
+        UserDAO newDAO = new UserDAO();
+        ERSUser user = newDAO.getById(this.userId);
+        ERSUserRoles newRole = new ERSUserRoles(roleId, user.getRoleId().getRoleOf());
+        return new ERSUser(this.userId, this.userName, this.email, this.userPassword, this.givenName, this.surname,
+                this.isActive, newRole);
     }
 
     @Override
     public String toString() {
-        return "NewUserRequest{" +
+        return "UpdateUserRequest{" +
                 "userId='" + userId + '\'' +
                 ", userName='" + userName + '\'' +
                 ", email='" + email + '\'' +

@@ -2,6 +2,7 @@ package com.revature.foundations.services;
 
 import com.revature.foundations.dtos.requests.LoginRequest;
 import com.revature.foundations.dtos.requests.NewUserRequest;
+import com.revature.foundations.dtos.requests.UpdateUserRequest;
 import com.revature.foundations.dtos.responses.AppUserResponse;
 import com.revature.foundations.models.ERSUser;
 import com.revature.foundations.daos.UserDAO;
@@ -50,15 +51,18 @@ public class UsersService {
             throw new ResourceConflictException(msg);
         }
 
-
-
         newUser.setUserId(UUID.randomUUID().toString());
-        newUser.setRoleId(new ERSUserRoles("3", "Employee"));
+        newUser.setActive(true);
+        newUser.setRoleId(new ERSUserRoles("3", "3"));
         userDAO.save(newUser);
 
         return newUser;
     }
-
+    public ERSUser updatedUser(UpdateUserRequest updateRequest) {
+        ERSUser updatedUser = updateRequest.extractUser();
+        userDAO.update(updatedUser);
+        return updatedUser;
+    }
     public ERSUser login(LoginRequest loginRequest) {
 
         String username = loginRequest.getUsername();

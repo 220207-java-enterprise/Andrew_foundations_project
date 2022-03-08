@@ -13,15 +13,16 @@ public class ERSRembursements {
     private String paymentId;
     private String authorId;
     private String resolverId;
-    private String statusId;
-    private String typeId;
+    private ERSReimbursementsStatuses statusId;
+    private ERSReimbursementTypes typeId;
 
     public ERSRembursements(){
         super();
     }
 
     public ERSRembursements(String reimbId, Double amount, Timestamp submitted, Timestamp resolved, String receipt,
-                            String paymentId, String authorId, String resolverId, String statusId, String typeId) {
+                            String paymentId, String authorId, String resolverId, ERSReimbursementsStatuses statusId,
+                            ERSReimbursementTypes typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
@@ -98,19 +99,19 @@ public class ERSRembursements {
         this.resolverId = resolverId;
     }
 
-    public String getStatusId() {
+    public ERSReimbursementsStatuses getStatusId() {
         return statusId;
     }
 
-    public void setStatusId(String statusId) {
+    public void setStatusId(ERSReimbursementsStatuses statusId) {
         this.statusId = statusId;
     }
 
-    public String getTypeId() {
+    public ERSReimbursementTypes getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
+    public void setTypeId(ERSReimbursementTypes typeId) {
         this.typeId = typeId;
     }
 

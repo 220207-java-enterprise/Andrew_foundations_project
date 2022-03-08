@@ -31,12 +31,12 @@ import java.util.List;
 public class ReimburseServlet extends HttpServlet{
 
     private final TokenService tokenService;
-    private final UsersService userService;
+    private final ReimbursementsServices reimbursementsServices;
     private final ObjectMapper mapper;
 
-    public ReimburseServlet(TokenService tokenService, UsersService userService, ObjectMapper mapper) {
+    public ReimburseServlet(TokenService tokenService, ReimbursementsServices reimbursementsServices, ObjectMapper mapper) {
         this.tokenService = tokenService;
-        this.userService = userService;
+        this.reimbursementsServices = reimbursementsServices;
         this.mapper = mapper;
     }
 
@@ -57,7 +57,7 @@ public class ReimburseServlet extends HttpServlet{
             resp.setStatus(403); // FORBIDDEN
         }
 
-        List<ReimbursementResponse> reimbursements = ReimbursementsServices.getAllReimbursements();
+        List<ReimbursementResponse> reimbursements = reimbursementsServices.getAllReimbursements();
         String payload = mapper.writeValueAsString(reimbursements);
         resp.setContentType("application/json");
         resp.getWriter().write(payload);
@@ -71,12 +71,17 @@ public class ReimburseServlet extends HttpServlet{
         PrintWriter respWriter = resp.getWriter();
 
         try {
-
-            NewUserRequest newUserRequest = mapper.readValue(req.getInputStream(), NewUserRequest.class);
-            ERSUser newUser = userService.register(newUserRequest);
+            Principal ifEmp = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
+            //check if time expired on token = null
+            //System.out.println(ifAdmin);
+            if(!(ifEmp.getRoleId().equals("Employee"))){
+                throw new InvalidRequestException("Not an Employee!");
+            }
+            ReimbursementRequest reimbursementRequest = mapper.readValue(req.getInputStream(), ReimbursementRequest.class);
+            ERSReimbursements newReimbursement = reimbursementsServices.NewReimbursement(reimbursementRequest);
             resp.setStatus(201); // CREATED
             resp.setContentType("application/json");
-            String payload = mapper.writeValueAsString(new ResourceCreationResponse(newUser.getUserId()));
+            String payload = mapper.writeValueAsString(new ResourceCreationResponse(newReimbursement.getReimbId()));
             respWriter.write(payload);
 
         } catch (InvalidRequestException | DatabindException e) {
@@ -97,15 +102,15 @@ public class ReimburseServlet extends HttpServlet{
             Principal ifAdmin = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
             //check if time expired on token = null
             //System.out.println(ifAdmin);
-            if(!(ifAdmin.getRoleId().equals("Admin"))){
-                throw new InvalidRequestException("Not an Admin!");
+            if(!(ifAdmin.getRoleId().equals("FManager"))){
+                throw new InvalidRequestException("Not an Finance Manager!");
             }
-            UpdateUserRequest updateUser = mapper.readValue(req.getInputStream(), UpdateUserRequest.class);
-            ERSUser updatedUser = userService.updatedUser(updateUser);
+            UpdateReimbursementRequest updateReimbursement = mapper.readValue(req.getInputStream(), UpdateReimbursementRequest.class);
+            ERSReimbursements updatedReimburement = reimbursementsServices.updateReimbursementStatus(updateReimbursement);
 
             resp.setStatus(201); // Succesful
             resp.setContentType("application/json");
-            String payload = mapper.writeValueAsString(new ResourceCreationResponse(updatedUser.getUserId()));
+            String payload = mapper.writeValueAsString(new ResourceCreationResponse(updatedReimburement.getReimbId()));
             respWriter.write(payload);
 
         } catch (InvalidRequestException | DatabindException e) {

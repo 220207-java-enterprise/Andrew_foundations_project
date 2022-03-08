@@ -97,7 +97,7 @@ public class UsersServlet extends HttpServlet {
 
         try{
             Principal ifAdmin = tokenService.extractRequesterDetails(req.getHeader("Authorization"));
-            //will check if time expired on token
+            //check if time expired on token = null
             //System.out.println(ifAdmin);
             if(!(ifAdmin.getRoleId().equals("Admin"))){
                 throw new InvalidRequestException("Not an Admin!");

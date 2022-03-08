@@ -1,6 +1,5 @@
 package com.revature.foundations.dtos.requests;
 
-import sun.rmi.runtime.Log;
 
 public class LoginRequest {
 

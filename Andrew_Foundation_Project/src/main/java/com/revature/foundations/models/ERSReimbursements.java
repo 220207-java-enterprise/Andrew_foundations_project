@@ -1,33 +1,32 @@
 package com.revature.foundations.models;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-public class ERSRembursements {
+public class ERSReimbursements {
     private String reimbId;
     private Double amount; //TODO set max decimales to 2
     private Timestamp submitted;
     private Timestamp resolved;
-    private String receipt; //TODO insert image
+    private String description; //TODO insert image
     private String paymentId;
     private String authorId;
     private String resolverId;
     private ERSReimbursementsStatuses statusId;
     private ERSReimbursementTypes typeId;
 
-    public ERSRembursements(){
+    public ERSReimbursements(){
         super();
     }
 
-    public ERSRembursements(String reimbId, Double amount, Timestamp submitted, Timestamp resolved, String receipt,
-                            String paymentId, String authorId, String resolverId, ERSReimbursementsStatuses statusId,
-                            ERSReimbursementTypes typeId) {
+    public ERSReimbursements(String reimbId, Double amount, Timestamp submitted, Timestamp resolved, String description,
+                             String paymentId, String authorId, String resolverId, ERSReimbursementsStatuses statusId,
+                             ERSReimbursementTypes typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
-        this.receipt = receipt;
+        this.description = description;
         this.paymentId = paymentId;
         this.authorId = authorId;
         this.resolverId = resolverId;
@@ -67,12 +66,12 @@ public class ERSRembursements {
         this.resolved = resolved;
     }
 
-    public String getReceipt() {
-        return receipt;
+    public String getDescription() {
+        return description;
     }
 
-    public void setReceipt(String receipt) {
-        this.receipt = receipt;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPaymentId() {
@@ -119,12 +118,12 @@ public class ERSRembursements {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ERSRembursements that = (ERSRembursements) o;
+        ERSReimbursements that = (ERSReimbursements) o;
         return Objects.equals(reimbId, that.reimbId)
                 && Objects.equals(amount, that.amount)
                 && Objects.equals(submitted, that.submitted)
                 && Objects.equals(resolved, that.resolved)
-                && Objects.equals(receipt, that.receipt)
+                && Objects.equals(description, that.description)
                 && Objects.equals(paymentId, that.paymentId)
                 && Objects.equals(authorId, that.authorId)
                 && Objects.equals(resolverId, that.resolverId)
@@ -134,7 +133,7 @@ public class ERSRembursements {
 
     @Override
     public int hashCode() {
-        return Objects.hash(reimbId, amount, submitted, resolved, receipt, paymentId, authorId,
+        return Objects.hash(reimbId, amount, submitted, resolved, description, paymentId, authorId,
                 resolverId, statusId, typeId);
     }
 
@@ -145,7 +144,7 @@ public class ERSRembursements {
                 ", amount=" + amount +
                 ", submitted='" + submitted + '\'' +
                 ", resolved='" + resolved + '\'' +
-                ", receipt='" + receipt + '\'' +
+                ", receipt='" + description + '\'' +
                 ", paymentId='" + paymentId + '\'' +
                 ", authorId='" + authorId + '\'' +
                 ", resolverId='" + resolverId + '\'' +

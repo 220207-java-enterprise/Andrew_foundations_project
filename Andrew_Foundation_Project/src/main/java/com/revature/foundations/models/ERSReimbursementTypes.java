@@ -10,7 +10,7 @@ public class ERSReimbursementTypes {
         super();
     }
 
-    ERSReimbursementTypes(String typeId, String typeOf){
+    public ERSReimbursementTypes(String typeId, String typeOf){
         this.typeId = typeId;
         this.typeOf = typeOf;
     }

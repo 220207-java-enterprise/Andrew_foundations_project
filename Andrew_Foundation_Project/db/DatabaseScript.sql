@@ -71,7 +71,7 @@ alter table ers_reimbursements add constraint FK_TYPE_ID
 	foreign key (TYPE_ID) references ERS_REIMBURSEMENTS_TYPES(TYPE_ID) ON DELETE NO ACTION ON UPDATE NO action;
 
 --default setup
-insert into ers_user_roles values ('1', 'Admin'), ('2', 'Finance Manager'), ('3', 'Employee');
+insert into ers_user_roles values ('1', 'Admin'), ('2', 'FManager'), ('3', 'Employee');
 insert into ers_users values ('1', 'Tester99', 'AmazingTester@revature.com', 'p4$$W0RD', 'Amazing',
 	'Tester', true, '1');
 insert into ers_users values ('2', 'Administrator', 'Administrator@revature.com', 'p4$$W0RD', 'Administrator',
@@ -79,4 +79,6 @@ insert into ers_users values ('2', 'Administrator', 'Administrator@revature.com'
 
 select * from ers_users eu;
 
-SELECT USER_ID, USERNAME, EMAIL, USERPASSWORD, GIVEN_NAME, SUR_NAME, IS_ACTIVE, ers_users.ROLE_ID, ers_user_roles.ROLEOF FROM ers_users JOIN ers_user_roles ON ers_users.ROLE_ID = ers_user_roles.ROLE_ID 
+select * from ers_users eu;
+select * from ers_user_roles eur;
+SELECT USER_ID, USERNAME, EMAIL, USERPASSWORD, GIVEN_NAME, SUR_NAME, IS_ACTIVE, ers_users.ROLE_ID, ers_user_roles.ROLEOF FROM ers_users JOIN ers_user_roles ON ers_users.ROLE_ID = ers_user_roles.ROLE_ID;

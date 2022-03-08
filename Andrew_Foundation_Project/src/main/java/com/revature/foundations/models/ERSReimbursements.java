@@ -9,6 +9,7 @@ public class ERSReimbursements {
     private Timestamp submitted;
     private Timestamp resolved;
     private String description; //TODO insert image
+    private String receipt;
     private String paymentId;
     private String authorId;
     private String resolverId;
@@ -20,13 +21,14 @@ public class ERSReimbursements {
     }
 
     public ERSReimbursements(String reimbId, Double amount, Timestamp submitted, Timestamp resolved, String description,
-                             String paymentId, String authorId, String resolverId, ERSReimbursementsStatuses statusId,
-                             ERSReimbursementTypes typeId) {
+                             String receipt, String paymentId, String authorId, String resolverId,
+                             ERSReimbursementsStatuses statusId, ERSReimbursementTypes typeId) {
         this.reimbId = reimbId;
         this.amount = amount;
         this.submitted = submitted;
         this.resolved = resolved;
         this.description = description;
+        this.receipt = receipt;
         this.paymentId = paymentId;
         this.authorId = authorId;
         this.resolverId = resolverId;
@@ -114,6 +116,14 @@ public class ERSReimbursements {
         this.typeId = typeId;
     }
 
+    public String getReceipt() {
+        return receipt;
+    }
+
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -124,6 +134,7 @@ public class ERSReimbursements {
                 && Objects.equals(submitted, that.submitted)
                 && Objects.equals(resolved, that.resolved)
                 && Objects.equals(description, that.description)
+                && Objects.equals(receipt, that.receipt)
                 && Objects.equals(paymentId, that.paymentId)
                 && Objects.equals(authorId, that.authorId)
                 && Objects.equals(resolverId, that.resolverId)
@@ -133,7 +144,7 @@ public class ERSReimbursements {
 
     @Override
     public int hashCode() {
-        return Objects.hash(reimbId, amount, submitted, resolved, description, paymentId, authorId,
+        return Objects.hash(reimbId, amount, submitted, resolved, description, receipt, paymentId, authorId,
                 resolverId, statusId, typeId);
     }
 
@@ -144,7 +155,8 @@ public class ERSReimbursements {
                 ", amount=" + amount +
                 ", submitted='" + submitted + '\'' +
                 ", resolved='" + resolved + '\'' +
-                ", receipt='" + description + '\'' +
+                ", description='" + description + '\'' +
+                ", receipt='" + receipt + '\'' +
                 ", paymentId='" + paymentId + '\'' +
                 ", authorId='" + authorId + '\'' +
                 ", resolverId='" + resolverId + '\'' +

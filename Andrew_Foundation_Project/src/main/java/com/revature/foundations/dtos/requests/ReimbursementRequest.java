@@ -62,7 +62,8 @@ public class ReimbursementRequest {
         ERSReimbursementsStatuses status = new ERSReimbursementsStatuses("PENDING", "PENDING");
         ERSReimbursementTypes type = new ERSReimbursementTypes(this.typeId, this.typeId);
         return new ERSReimbursements(reimbId, this.amount, new Timestamp(System.currentTimeMillis()),
-                new Timestamp(0), this.description, null, this.authorId, null, status, type);
+                new Timestamp(0), this.description, null, null, this.authorId, null,
+                status, type);
     }
     @Override
     public String toString() {

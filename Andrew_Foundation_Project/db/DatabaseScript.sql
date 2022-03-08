@@ -77,8 +77,9 @@ insert into ers_users values ('1', 'Tester99', 'AmazingTester@revature.com', 'p4
 insert into ers_users values ('2', 'Administrator', 'Administrator@revature.com', 'p4$$W0RD', 'Administrator',
 	'Administrator', true, '1');
 
-select * from ers_users eu;
+insert into ers_reimbursements_statuses values ('APPROVED', 'APPROVED'), ('PENDING', 'PENDING'), ('DENIED', 'DENIED');
 
 select * from ers_users eu;
 select * from ers_user_roles eur;
+select * from ers_reimbursements er;
 SELECT USER_ID, USERNAME, EMAIL, USERPASSWORD, GIVEN_NAME, SUR_NAME, IS_ACTIVE, ers_users.ROLE_ID, ers_user_roles.ROLEOF FROM ers_users JOIN ers_user_roles ON ers_users.ROLE_ID = ers_user_roles.ROLE_ID;

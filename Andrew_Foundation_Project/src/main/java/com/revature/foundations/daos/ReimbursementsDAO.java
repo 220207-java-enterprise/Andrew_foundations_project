@@ -39,17 +39,18 @@ public class ReimbursementsDAO implements CrudDAO<ERSReimbursements>{
 
             conn.setAutoCommit(false);
             PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ers_reimbursements VALUES (?, ?, ?, ?," +
-                    " ?, ?, ?, ?, ?, ?)");
+                    " ?, ?, ?, ?, ?, ?, ?)");
             pstmt.setString(1, newReimbursement.getReimbId());
             pstmt.setDouble(2, newReimbursement.getAmount());
             pstmt.setTimestamp(3, newReimbursement.getSubmitted());
             pstmt.setTimestamp(4, newReimbursement.getResolved());
             pstmt.setString(5, newReimbursement.getDescription());//TODO setBytea
-            pstmt.setString(6, newReimbursement.getPaymentId());
-            pstmt.setString(7, newReimbursement.getAuthorId());
-            pstmt.setString(8, newReimbursement.getResolverId());
-            pstmt.setString(9, newReimbursement.getStatusId().getStatusId());
-            pstmt.setString(10, newReimbursement.getTypeId().getTypeId());
+            pstmt.setString(6, newReimbursement.getReceipt());
+            pstmt.setString(7, newReimbursement.getPaymentId());
+            pstmt.setString(8, newReimbursement.getAuthorId());
+            pstmt.setString(9, newReimbursement.getResolverId());
+            pstmt.setString(10, newReimbursement.getStatusId().getStatusId());
+            pstmt.setString(11, newReimbursement.getTypeId().getTypeId());
 
             int rowsInserted = pstmt.executeUpdate();
             if (rowsInserted != 1) {

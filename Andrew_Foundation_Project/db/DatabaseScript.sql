@@ -78,6 +78,7 @@ insert into ers_users values ('2', 'Administrator', 'Administrator@revature.com'
 	'Administrator', true, '1');
 
 insert into ers_reimbursements_statuses values ('APPROVED', 'APPROVED'), ('PENDING', 'PENDING'), ('DENIED', 'DENIED');
+insert into ers_reimbursements_types values ('TRAVEL', 'TRAVEL'), ('FOOD', 'FOOD'), ('RENTAL', 'RENTAL');
 
 select * from ers_users eu;
 select * from ers_user_roles eur;

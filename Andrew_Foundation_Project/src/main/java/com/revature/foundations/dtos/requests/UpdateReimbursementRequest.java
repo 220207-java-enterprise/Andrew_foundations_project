@@ -1,10 +1,20 @@
 package com.revature.foundations.dtos.requests;
 
+import com.revature.foundations.daos.ReimbursementsDAO;
+import com.revature.foundations.models.*;
+
+import java.sql.Timestamp;
+import java.util.UUID;
+
 public class UpdateReimbursementRequest {
 
     private String reimbId;
     private String resolverId;
     private String status;
+
+    public UpdateReimbursementRequest(){
+        super();
+    }
 
     public UpdateReimbursementRequest(String reimbId, String resolverId, String status) {
         this.reimbId = reimbId;
@@ -35,4 +45,5 @@ public class UpdateReimbursementRequest {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }

@@ -20,12 +20,13 @@ public class ReimbursementsDAO implements CrudDAO<ERSReimbursements>{
             "er.SUBMITTED, " +
             "er.RESOLVED, " +
             "er.DESCRIPTION, " +
+            "er.RECEIPT, " +
             "er.PAYMENT_ID, " +
             "er.AUTHOR_ID, " +
             "er.RESOLVER_ID, " +
-            "er.STATUS_ID " +
-            "er.TYPE_ID " +
-            "ers.STATUS " +
+            "er.STATUS_ID, " +
+            "er.TYPE_ID, " +
+            "ers.STATUS, " +
             "ert.TYPEOF " +
             "FROM ers_reimbursements er " +
             "JOIN ers_reimbursements_statuses ers " +
@@ -78,18 +79,19 @@ public class ReimbursementsDAO implements CrudDAO<ERSReimbursements>{
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 Reimbursements = new ERSReimbursements();
-                Reimbursements.setReimbId(rs.getString("reimbId"));
+                Reimbursements.setReimbId(rs.getString("REIMB_ID"));
                 Reimbursements.setAmount(rs.getDouble("amount"));
                 Reimbursements.setSubmitted(rs.getTimestamp("submitted"));
                 Reimbursements.setResolved(rs.getTimestamp("resolved"));
-                Reimbursements.setDescription(rs.getString("description"));//TODO set Bytea
-                Reimbursements.setPaymentId(rs.getString("paymentId"));
-                Reimbursements.setAuthorId(rs.getString("authorId"));
-                Reimbursements.setResolverId(rs.getString("resolverId"));
-                Reimbursements.setStatusId(new ERSReimbursementsStatuses(rs.getString("statusesId"),
-                        rs.getString("status")));
-                Reimbursements.setTypeId(new ERSReimbursementTypes(rs.getString("typeId"),
-                        rs.getString("typeOf")));
+                Reimbursements.setDescription(rs.getString("description"));
+                Reimbursements.setReceipt(rs.getString("receipt"));//TODO set Bytea
+                Reimbursements.setPaymentId(rs.getString("PAYMENT_ID"));
+                Reimbursements.setAuthorId(rs.getString("AUTHOR_ID"));
+                Reimbursements.setResolverId(rs.getString("RESOLVER_ID"));
+                Reimbursements.setStatusId(new ERSReimbursementsStatuses(rs.getString("STATUS_ID"),
+                        rs.getString("STATUS")));
+                Reimbursements.setTypeId(new ERSReimbursementTypes(rs.getString("TYPE_ID"),
+                       rs.getString("TYPEOF")));
 
             }
 
@@ -143,7 +145,7 @@ public class ReimbursementsDAO implements CrudDAO<ERSReimbursements>{
                     "payment_id = ?, " +
                     "author_id = ?, " +
                     "resolver_id = ?, " +
-                    "status_id = ? " +
+                    "status_id = ?, " +
                     "type_id = ? " +
                     "WHERE reimb_id = ?");
 
@@ -153,6 +155,7 @@ public class ReimbursementsDAO implements CrudDAO<ERSReimbursements>{
             pstmt.setString(4, updateReimbursements.getPaymentId());
             pstmt.setString(5, updateReimbursements.getAuthorId());
             pstmt.setString(6, updateReimbursements.getResolverId());
+            //fixme
             pstmt.setString(7, updateReimbursements.getStatusId().getStatusId());
             pstmt.setString(8, updateReimbursements.getTypeId().getTypeId());
             pstmt.setString(9, updateReimbursements.getReimbId());

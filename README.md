@@ -1,5 +1,5 @@
 Project Description
-Here goes your awesome project description!
+A backend API which allows the creation users to interact with logging reimbursements for a company. New accounts can be created and Admins can update users to be able to use the application. Employees can create and lookup reimbursements while Finance Managers can approve or deny them.
 
 Technologies Used
 Java
